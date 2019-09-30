@@ -52,7 +52,7 @@ class Boiler:
         self.attribute_list = []
         self.index = index
         for register in self.index:
-            if register['type'] == 'bits':
+            if 'type' in register and register['type'] == 'bits':
                 for varname in register['bits']:
                     setattr(self, varname, None)
                     self.attribute_list.append(varname)
@@ -78,7 +78,7 @@ class Boiler:
                 log.debug('Browsing register id {:d} value: None'.format(register['id']))
                 continue
             log.debug('Browsing register id {:d} value: {:#04x}'.format(register['id'], register_value))
-            if register['type'] == 'bits':
+            if 'type' in register and register['type'] == 'bits':
                 for i in range(len(register['bits'])):
                     bit_varname = register['bits'][i]
                     bit_value = register_value >> i & 1
@@ -86,7 +86,7 @@ class Boiler:
             else:
                 varname = register.get('name')
                 if varname and varname.strip(): #test name exists
-                    if register['type'] == 'DiematicOneDecimal':
+                    if 'type' in register and register['type'] == 'DiematicOneDecimal':
                         setattr(self, varname, self._decode_decimal(register_value, 1))
                     else:
                         setattr(self, varname, register_value)
