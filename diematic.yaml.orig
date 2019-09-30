@@ -24,11 +24,16 @@ registers:
     - id: 603
       name: temperature_tank
       type: DiematicOneDecimal
+    - id: 604
+      name: temperature_gases
     - id: 605
       name: temperature_circuit_b
       type: DiematicOneDecimal
     - id: 606
       name: temperature_circuit_c
+      type: DiematicOneDecimal
+    - id: 607
+      name: temperature_return_aux
       type: DiematicOneDecimal
     - id: 610
       name: pressure
@@ -36,11 +41,23 @@ registers:
     - id: 614
       name: temperature_ambiant_circuit_a
       type: DiematicOneDecimal
+    - id: 615
+      name: temperature_computed_circuit_a
+      type: DiematicOneDecimal
     - id: 616
       name: temperature_ambiant_circuit_b
       type: DiematicOneDecimal
+    - id: 617
+      name: temperature_computed_circuit_b
+      type: DiematicOneDecimal
     - id: 618
       name: temperature_ambiant_circuit_c
+      type: DiematicOneDecimal
+    - id: 619
+      name: temperature_computed_circuit_c
+      type: DiematicOneDecimal
+    - id: 620
+      name: temperature_computed_boiler
       type: DiematicOneDecimal
     - id: 700
       name: bits_base
