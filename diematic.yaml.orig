@@ -79,7 +79,7 @@ registers:
           - io_burner_5_1
           - io_burner_4_2
           - io_burner_4_1
-    - id: 701
+    - id: 702
       name: bits_terminal_2
       type: bits
       bits:
