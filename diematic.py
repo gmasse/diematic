@@ -265,7 +265,14 @@ def run_sync_client():
         influx_client = InfluxDBClient(cfg['influxdb']['host'], cfg['influxdb']['port'], cfg['influxdb']['user'], cfg['influxdb']['password'], cfg['influxdb']['database'])
 
         log.debug("Write points: {0}".format(influx_json_body))
-        influx_client.write_points(influx_json_body, time_precision='ms')
+        try:
+            influx_client.write_points(influx_json_body, time_precision='ms')
+        except InfluxDBClientError as err:
+            log.critical("InfluxDB JSON request: {0}".format(influx_json_body))
+            log.critical("InfluxDB Client write_points error: {0}".format(err))
+        except Exception as e:
+            log.critical("InfluxDB JSON request: {0}".format(influx_json_body))
+            log.critical("InfluxDB write_points unknown error ({0}): {0}".format(type(e), e))
 
 
 if __name__ == "__main__":
