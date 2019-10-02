@@ -267,7 +267,7 @@ def run_sync_client():
         log.debug("Write points: {0}".format(influx_json_body))
         try:
             influx_client.write_points(influx_json_body, time_precision='ms')
-        except InfluxDBClientError as err:
+        except InfluxDBClient.client.InfluxDBClientError as err:
             log.critical("InfluxDB JSON request: {0}".format(influx_json_body))
             log.critical("InfluxDB Client write_points error: {0}".format(err))
         except Exception as e:
