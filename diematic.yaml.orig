@@ -15,6 +15,15 @@ influxdb:
     database: diematic
 
 registers:
+    - id: 503
+      name: power_instant
+      type: DiematicOneDecimal
+    - id: 504
+      name: power_instant_average
+      type: DiematicOneDecimal
+    - id: 505
+      name: power_instant_average_dhw #domestic_hot_water
+      type: DiematicOneDecimal
     - id: 601
       name: temperature_external
       type: DiematicOneDecimal
@@ -68,10 +77,10 @@ registers:
           - io_burner_1_2
           - io_burner_1_1
           - io_pump_a
-          - io_pump_ecs
+          - io_pump_dhw #domestic_hot_water
           - io_alarm_burner_1
           - io_diematic
-          - io_switch_isolation_1
+          - io_valve_isolation_1
           - io_boiler_mod_1
           - io_burner_6_2
           - io_burner_6_1
@@ -79,6 +88,26 @@ registers:
           - io_burner_5_1
           - io_burner_4_2
           - io_burner_4_1
+    - id: 701
+      name: bits_options_b_c
+      type: bits
+      bits:
+          - io_closing_valve_b
+          - io_opening_valve_b
+          - io_opening_valve_c
+          - io_closing_valve_c
+          - io_pump_b
+          - io_pump_c
+          - io_burner_2_gt100
+          - io_unknown_duree_2_gt100
+          - io_unknown_duree_9_2
+          - io_unknown_duree_9_1
+          - io_unknown_duree_8_2
+          - io_unknown_duree_8_1
+          - io_unknown_duree_7_2
+          - io_unknown_duree_7_1
+          - io_unknown_duree_6_2
+          - io_unknown_duree_6_1
     - id: 702
       name: bits_terminal_2
       type: bits
@@ -91,7 +120,7 @@ registers:
           - io_unknown_duree_2_2
           - io_unknown_duree_1_1
           - io_board_detected_k11
-          - io_switch_isolation_2
+          - io_valve_isolation_2
           - io_boiler_mod_2
           - io_burner_9_2
           - io_burner_9_1
@@ -99,6 +128,23 @@ registers:
           - io_burner_8_1
           - io_burner_7_2
           - io_burner_7_1
-
-
-
+    - id: 703
+      name: bits_terminal_3
+      type: bits
+      bits:
+          - io_burner_3_1
+          - io_burner_3_2
+          - io_pump_boiler_3
+          - io_alarm_burner_3
+          - io_unknown_duree_3_1
+          - io_unknown_duree_3_2
+          - io_unknown_duree_1_2
+          - io_board_detected_k12
+          - io_valve_isolation_3
+          - io_boiler_mod_3
+          - io_burner_5_2
+          - io_burner_5_1
+          - io_burner_4_2
+          - io_burner_4_1
+          - io_burner_10_2
+          - io_burner_10_1

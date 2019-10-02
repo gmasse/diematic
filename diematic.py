@@ -97,9 +97,9 @@ class Boiler:
         output = ''
         for id in range(len(self.registers)):
             if self.registers[id] is None:
-                output += "{:d}: None\n".format(id)
+                output += "{:03d}: None\n".format(id)
             else:
-                output += "{:d}: {:#04x}\n".format(id, self.registers[id])
+                output += "{0:03d}: {1:#06x} {1:#018b} {1:5d}\n".format(id, self.registers[id])
         return output
 
     def fetch_data(self):
@@ -215,32 +215,30 @@ def run_sync_client():
     client = ModbusClient(method='rtu', port=MODBUS_DEVICE, timeout=MODBUS_TIMEOUT, baudrate=MODBUS_BAUDRATE)
     client.connect()
 
-    #loading modbus data (registers: 600-620, 700-705)
-    id_start=600
-    id_stop=620
-    MyBoiler.registers = [None] * id_start;
-
-    for i in range(MODBUS_RETRIES):
-        log.debug("Attempt "+str(i+1))
-        rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
-        if rr.isError():
-            log.error(rr.message)
+    #loading modbus data (registers: 500-510, 600-620, 700-705)
+    register_range = [ (500, 510), (600, 620), (700, 705) ]
+    id_start = 0
+    id_stop = -1
+    for x, y in register_range:
+        id_start = x
+        #fill unused registers with None
+        MyBoiler.registers.extend([None] * (id_start-id_stop-1))
+        id_stop = y
+        failure = 0
+        for i in range(MODBUS_RETRIES):
+            log.debug("Attempt "+str(i+1))
+            rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
+            if rr.isError():
+                log.error(rr.message)
+                failure = 1
+            else:
+                MyBoiler.registers.extend(rr.registers)
+                failure = 0
+                break
+        if failure == 1:
+            #fill not retrieved registers with None
             MyBoiler.registers.extend([None] * (id_stop-id_start+1))
-        else:
-            MyBoiler.registers.extend(rr.registers)
-            break
-    id_start=700
-    MyBoiler.registers.extend([None] * (id_start-id_stop-1))
-    id_stop=706
-    for i in range(MODBUS_RETRIES):
-        log.debug("Attempt "+str(i+1))
-        rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
-        if rr.isError():
-            log.error(rr.message)
-            MyBoiler.registers.extend([None] * (id_stop-id_start+1))
-        else:
-            MyBoiler.registers.extend(rr.registers)
-            break
+    log.debug(MyBoiler.dump_registers())
     client.close()
 
     #parsing registers to push data in Object attributes
