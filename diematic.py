@@ -105,7 +105,9 @@ class Boiler:
     def fetch_data(self):
         output = { }
         for varname in self.attribute_list:
-            output[varname] = getattr(self, varname)
+            value = getattr(self, varname)
+            if value is not None:
+                output[varname] = value
         return output
 
     def dump(self):
