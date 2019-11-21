@@ -1,6 +1,8 @@
 # diematic
 De Dietrich Diematic Modbus data to InfluxDB
 
+![Screenshot](images/chronograf_screenshot.png?raw=true)
+
 ## Installation
 ```
 git clone https://github.com/gmasse/diematic.git
