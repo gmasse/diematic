@@ -35,8 +35,9 @@ optional arguments:
 ### Minimal
 ```
 CREATE DATABASE "diematic"
+CREATE USER "diematic" WITH PASSWORD 'mySecurePas$w0rd'
 GRANT ALL ON "diematic" TO "diematic"
-CREATE RETENTION POLICY "one_day" ON "diematic" DURATION 24h REPLICATION 1 DEFAULT
+CREATE RETENTION POLICY "one_week" ON "diematic" DURATION 1w REPLICATION 1 DEFAULT
 ```
 
 ### Additionnal steps for down-sampling
