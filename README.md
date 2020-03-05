@@ -48,7 +48,7 @@ CREATE RETENTION POLICY "five_years" ON "diematic" DURATION 260w REPLICATION 1
 CREATE CONTINUOUS QUERY "cq_month" ON "diematic" BEGIN
   SELECT mean(/temperature/) AS "mean_1h", mean(/pressure/) AS "mean_1h", max(/temperature/) AS "max_1h", max(/pressure/) AS "max_1h"
   INTO "five_weeks".:MEASUREMENT
-  FROM "one_day"."diematic"
+  FROM "one_week"."diematic"
   GROUP BY time(1h),*
 END
 
