@@ -74,9 +74,9 @@ END
 
 
 ## Crontab
-To run the script every minute and feed the database, `crontab -e`
+To run the script every minute and feed the database, `crontab -e` and add the following line:
 ```
-*/1 *   * * *       ~/diematic/venv/bin/python3 ~/diematic/diematic.py
+*/1 *   * * *       ~/diematic/launcher.sh
 ```
 
 
