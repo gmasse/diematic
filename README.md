@@ -10,8 +10,8 @@ cd diematic
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-vi diematic.yaml.orig
-mv diematic.yaml.orig diematic.yaml
+cp diematic.yaml.orig diematic.yaml
+vi diematic.yaml
 ```
 
 ## Test
