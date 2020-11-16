@@ -1,7 +1,19 @@
 # diematic
-De Dietrich Diematic Modbus data to InfluxDB
+
+A Python script to monitor De Dietrich boiler equiped with Diematic system using Modbus RS-845 protocol.
+The values fetched from the boiler are sent to an InfluxDB database, for monitoring with Chronograph.
 
 ![Screenshot](images/chronograf_screenshot.png?raw=true)
+
+
+## Hardware requirements
+
+ * A De Dietrich boiler with Diematic regulation and a mini-din socket
+ * A mini-din cable 
+ * A RS-845 to USB adapter
+ * A nano-computer with a USB port and Python3 installed (Raspberry pi or similar)
+
+Check tutorials in the "references" section below on how to do the hardware setup.
 
 ## Installation
 ```
@@ -10,8 +22,8 @@ cd diematic
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-vi diematic.yaml.orig
-mv diematic.yaml.orig diematic.yaml
+cp diematic.yaml.orig diematic.yaml
+vi diematic.yaml
 ```
 
 ## Test
@@ -61,10 +73,10 @@ END
 ```
 
 
-## Cron
-To run the script every minute, `crontab -e`
+## Crontab
+To run the script every minute and feed the database, `crontab -e` and add the following line:
 ```
-*/1 *   * * *       ~/diematic/venv/bin/python3 ~/diematic/diematic.py
+*/1 *   * * *       ~/diematic/launcher.sh
 ```
 
 
