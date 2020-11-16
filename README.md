@@ -85,5 +85,5 @@ To run the script every minute and feed the database, `crontab -e` and add the f
 - (french) http://sarakha63-domotique.fr/chaudiere-de-dietrich-domotise-modbus/amp/
 - (french) https://www.dom-ip.com/wiki/Réalisation_d%27une_Interface_Web_pour_une_chaudière_De_Dietrich_équipée_d%27une_régulation_Diematic_3
 - (french forum) https://www.domotique-fibaro.fr/topic/5677-de-dietrich-diematic-isystem/
-- (french forum) http://www.wit-square.fr/forum/topics/de-dietrich-communication-modbus-bi-ma-tre
+- ~~(french forum) http://www.wit-square.fr/forum/topics/de-dietrich-communication-modbus-bi-ma-tre~~
 - (french, modbus registers sheets, copy from previous forum) https://drive.google.com/file/d/156qBsfRGJvOpJBJu5K4WMHUuwv34bZQN/view?usp=sharing
