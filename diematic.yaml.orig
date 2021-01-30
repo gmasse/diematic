@@ -1,11 +1,20 @@
 logging: critical
 
+
+# Modbus connection parameters
+# The 'register_ranges' indicates the ranges of ids to be read
+# from the device, to avoid reading lots of useless data.
+# All registers ids listed in the 'registers' section below
+# must be included in a range, otherwise they will be ignored.
 modbus:
     retries: 3
     unit: 10
     device: /dev/ttyUSB0
     timeout: 10
     baudrate: 9600
+    register_ranges:
+      - [ 600, 620]
+      - [ 700, 702]
 
 influxdb:
     host: localhost
