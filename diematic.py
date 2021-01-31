@@ -215,37 +215,28 @@ def run_sync_client():
     client = ModbusClient(method='rtu', port=MODBUS_DEVICE, timeout=MODBUS_TIMEOUT, baudrate=MODBUS_BAUDRATE)
     client.connect()
 
-    #loading modbus data (registers: 600-620, 700-705)
-    id_start=600
-    id_stop=620
-    MyBoiler.registers = [None] * id_start;
+    MyBoiler.registers = []
+    id_stop = -1
 
-    for i in range(MODBUS_RETRIES):
-        log.debug("Attempt "+str(i+1))
-        rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
-        if rr.isError():
-            log.error(rr.message)
-            MyBoiler.registers.extend([None] * (id_stop-id_start+1))
-        else:
-            MyBoiler.registers.extend(rr.registers)
-            break
-    id_start=700
-    MyBoiler.registers.extend([None] * (id_start-id_stop-1))
-    id_stop=706
-    for i in range(MODBUS_RETRIES):
-        log.debug("Attempt "+str(i+1))
-        rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
-        if rr.isError():
-            log.error(rr.message)
-            MyBoiler.registers.extend([None] * (id_stop-id_start+1))
-        else:
-            MyBoiler.registers.extend(rr.registers)
-            break
+    for mbrange in cfg['modbus']['register_ranges']:
+        id_start = mbrange[0]
+        MyBoiler.registers.extend([None] * (id_start-id_stop-1))
+        id_stop = mbrange[1]
+
+        for i in range(MODBUS_RETRIES):
+            log.debug("Attempt {} to read registers from {} to {}".format(i, id_start, id_stop))
+            rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
+            if rr.isError():
+                log.error(rr.message)
+                MyBoiler.registers.extend([None] * (id_stop-id_start+1))
+            else:
+                MyBoiler.registers.extend(rr.registers)
+                break
     client.close()
 
     #parsing registers to push data in Object attributes
     MyBoiler.browse_registers()
-    log.info(MyBoiler.dump())
+    log.info("Dumping values\n" + MyBoiler.dump())
 
 
     #pushing data to influxdb
