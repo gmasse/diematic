@@ -69,6 +69,22 @@ class Boiler:
             output = -output
         return float(output)/10**decimals
 
+
+    def _decode_modeflag(self, value_int):
+       """ Decodes and normalizes the working mode of the boiler.
+            0 -> Anti-freeze
+            2 -> Night
+            4 -> Day
+       """ 
+       if value_int not in (0, 2, 4):
+           return None
+       if value_int == 4:
+           return 1
+       if value_int == 2:
+           return 0
+       if value_int == 0:
+           return -1
+
     def browse_registers(self):
         for register in self.index:
             if not isinstance(register['id'], int):
@@ -88,6 +104,8 @@ class Boiler:
                 if varname and varname.strip(): #test name exists
                     if register['type'] == 'DiematicOneDecimal':
                         setattr(self, varname, self._decode_decimal(register_value, 1))
+                    elif register['type'] == 'DiematicModeFlag':
+                        setattr(self, varname, self._decode_modeflag(register_value))
                     else:
                         setattr(self, varname, register_value)
                 else:
