@@ -14,6 +14,7 @@ modbus:
     baudrate: 9600
     register_ranges:
       - [ 600, 620]
+      - [ 637, 640]
       - [ 700, 702]
 
 influxdb:
@@ -51,6 +52,15 @@ registers:
     - id: 618
       name: temperature_ambiant_circuit_c
       type: DiematicOneDecimal
+    - id: 637
+      name: mode_circuit_a
+      type: DiematicModeFlag
+    - id: 638
+      name: mode_circuit_b
+      type: DiematicModeFlag
+    - id: 639
+      name: mode_circuit_c
+      type: DiematicModeFlag
     - id: 700
       name: bits_base
       type: bits
