@@ -1,5 +1,8 @@
 # diematic
 
+> :warning: This repository is archived because I don't own a Diematic boiler anymore.
+> You can visit the [fork](https://github.com/IgnacioHR/diematic_server) from @IgnacioHR with additionnal features.
+
 A Python script to monitor De Dietrich boiler equiped with Diematic system using Modbus RS-845 protocol.
 The values fetched from the boiler are sent to an InfluxDB database, for monitoring with Chronograph.
 
